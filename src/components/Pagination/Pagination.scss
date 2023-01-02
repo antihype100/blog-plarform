@@ -1,0 +1,46 @@
+.paginationPanel {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+
+  button {
+    background: inherit;
+    display: flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__pagesList {
+    display: flex;
+  }
+
+  &__pageLink {
+    margin-left: 20px;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:hover {
+      background: #1890FF;
+      color: white;
+    }
+
+  }
+
+  &__nextPageButton {
+    margin-left: 20px;
+  }
+}
+
+
+.active {
+  background: #1890FF;
+  color: white;
+}

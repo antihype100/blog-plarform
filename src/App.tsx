@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
+import {Layout} from "./components/Layout/Layout";
+import {Posts} from "./components/Posts/Posts";
+import {Post} from "./components/Posts/Post/Post";
+import {HomePage} from "./components/HomePage/HomePage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const router = createBrowserRouter(createRoutesFromElements(
+    <Route path='/' element={<Layout/>}>
+        <Route path='' element={<HomePage/>}/>
+        <Route path='posts' element={<Posts/>}/>
+        <Route path='posts/:id' element={<Post/>}/>
+
+    </Route>
+))
+
+const App = () => {
+
+    return (
+            <RouterProvider router={router}/>
+    )
 }
 
-export default App;
+export {App}

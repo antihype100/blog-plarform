@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  padding: 29px 22px;
+  justify-content: space-between;
+  background: #FFFFFF;
+  font-size: 18px;
+
+  &__blogName {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.85);
+  }
+  &__authWrapper {
+    a {
+      padding: 13px 18px 16px 18px;
+    }
+
+  }
+
+  &__signIn {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.85);
+  }
+  &__signUp {
+    text-decoration: none;
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+    color: #52C41A;
+  }
+}
+
