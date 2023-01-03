@@ -8,7 +8,13 @@
     display: flex;
     align-items: center;
     border: none;
+    height: 25px;
     cursor: pointer;
+    &:hover {
+      background: #1890FF;
+      color: white;
+      border-radius: 5px;
+    }
   }
 
   &__pagesList {
@@ -27,10 +33,6 @@
     cursor: pointer;
     border-radius: 4px;
 
-    &:hover {
-      background: #1890FF;
-      color: white;
-    }
 
   }
 
