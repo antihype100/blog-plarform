@@ -1,1 +1,1 @@
-https://blog-platform-rayhatr3drus.vercel.app/
+https://blog-platform-antihype100.vercel.app/
