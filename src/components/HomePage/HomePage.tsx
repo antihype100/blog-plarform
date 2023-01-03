@@ -1,13 +1,14 @@
 import {Link} from "react-router-dom";
+import './HomePage.scss'
 
 
 
 const HomePage = () => {
     return (
-        <>
-            <h1>HomePage</h1>
+        <div className='homePageWrapper'>
+            <h1 className='homePageTitle'>HomePage</h1>
             <Link to='/posts'>К постам</Link>
-        </>
+        </div>
     )
 }
 

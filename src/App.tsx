@@ -5,12 +5,16 @@ import {Post} from "./components/Posts/Post/Post";
 import {HomePage} from "./components/HomePage/HomePage";
 import {Provider} from "react-redux";
 import {store} from "./redux";
+import {SignIn} from "./components/Auth/SignIn/SignIn";
+import {SignUp} from "./components/Auth/SignUp/SignUp";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
         <Route path='' element={<HomePage/>}/>
         <Route path='posts' element={<Posts/>}/>
         <Route path='posts/:slug' element={<Post/>}/>
+        <Route path='sign-in' element={<SignIn/>}/>
+        <Route path='sign-up' element={<SignUp/>}/>
 
     </Route>
 ))
