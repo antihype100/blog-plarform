@@ -7,10 +7,18 @@
   position: relative;
   filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
 
+  @media screen and (max-width: 600px) {
+    width: 350px;
+
+  }
   &__titleWrapper {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
+    @media screen and (max-width: 600px) {
+      margin-bottom: 40px;
+    }
+
   }
 
   &__title {
@@ -19,6 +27,9 @@
     margin-right: 13px;
     cursor: pointer;
     text-decoration: none;
+    @media screen and (max-width: 600px) {
+      font-size: 15px;
+    }
   }
 
   &__likesOnPostImg {
@@ -31,6 +42,9 @@
   }
 
   &__tagsList {
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
     li {
 
       color: rgba(0, 0, 0, 0.8);
@@ -59,7 +73,6 @@
   &__rightContent {
     display: flex;
     right: 15px;
-
     align-items: center;
     position: absolute;
   }
@@ -74,6 +87,9 @@
   &__author {
     font-size: 18px;
     color: rgba(0, 0, 0, 0.85);
+    @media screen and (max-width: 600px) {
+      font-size: 15px;
+    }
   }
   &__date {
     font-size: 12px;
@@ -85,5 +101,9 @@
     width: 46px;
     height: 46px;
     border-radius: 50px;
+    @media screen and (max-width: 600px) {
+      width: 35px;
+      height: 35px
+    }
   }
 }

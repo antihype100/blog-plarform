@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {login} from "../../../redux/reducers/authSlice";
 
-interface IFormInput {
+export interface IFormInput {
     firstName?: string;
     lastName?: string;
     age?: number;

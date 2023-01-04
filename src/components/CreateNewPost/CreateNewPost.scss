@@ -1,0 +1,78 @@
+.createPostForm {
+  background: white;
+  padding: 50px 32px 50px 32px;
+  margin-top: 32px;
+  border: 1px solid #D9D9D9;
+  box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198), 0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035), 0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+  border-radius: 6px;
+
+  h2 {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .createPostInputWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    width: 880px;
+
+    label {
+
+      margin-bottom: 5px;
+    }
+
+    textarea {
+      margin-bottom: 8px;
+      height: 200px;
+      padding: 8px 0 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #BFBFBF;
+
+      &::placeholder {
+        color: #BFBFBF;
+      }
+    }
+
+    input {
+      padding: 8px 0 8px 10px;
+      border-radius: 6px;
+      border: 1px solid #BFBFBF;
+      margin-bottom: 8px;
+
+      &::placeholder {
+        color: #BFBFBF;
+      }
+    }
+
+    .deleteButton {
+      padding: 10px 36px 10px 36px;
+      border: 1px solid #F5222D;
+      background: white;
+      color: red;
+      margin-left: 15px;
+      border-radius: 4px;
+    }
+
+    .addButton {
+      padding: 10px 36px 10px 36px;
+      border: 1px solid #1890FF;
+      background: white;
+      color: #1890FF;
+      margin-left: 15px;
+      border-radius: 4px;
+    }
+
+
+  }
+
+  .sendButton {
+    width: 320px;
+    padding: 12px 0 12px 0;
+    background: #1890FF;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    margin-top: 20px;
+  }
+}

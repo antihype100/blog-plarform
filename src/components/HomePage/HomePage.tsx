@@ -7,7 +7,7 @@ const HomePage = () => {
     return (
         <div className='homePageWrapper'>
             <h1 className='homePageTitle'>HomePage</h1>
-            <Link to='/posts'>К постам</Link>
+            <Link to='/articles'>К постам</Link>
         </div>
     )
 }

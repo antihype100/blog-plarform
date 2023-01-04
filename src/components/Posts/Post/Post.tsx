@@ -1,13 +1,29 @@
-import {useParams} from "react-router-dom";
-import heart from "../PostLink/heart.svg";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import heart from "../HeartLike/heart.svg";
 import './Post.scss'
-import {FunctionComponent} from "react";
-import {useGetPostQuery} from "../../../redux/reducers/postsApi";
+import {FunctionComponent, useEffect, useState} from "react";
+import warning from './warning.svg'
+import { parseISO } from 'date-fns'
+import {useDeletePostMutation, useGetPostQuery} from "../../../redux/reducers/postsApi";
 
 
 const Post: FunctionComponent = () => {
-    const {slug} = useParams()
+    // @ts-ignore
+    const {slug}: {slug: string} = useParams()
+    const [confirmDelete, setConfirmDelete] = useState(false)
+    localStorage.setItem('slug', slug)
     const {isSuccess, isLoading, data} = useGetPostQuery(slug)
+    const [deletePost, {isSuccess: postDelete}] = useDeletePostMutation()
+    let navigate = useNavigate();
+    useEffect(() => {
+        if (postDelete){
+            return navigate(`/`);
+        }
+    },[postDelete]);
+
+    const deletePostOnClick = () => {
+        deletePost(slug)
+    }
 
 
     let content
@@ -15,6 +31,7 @@ const Post: FunctionComponent = () => {
         content = <h1>Загрузка</h1>
     }
     if (isSuccess) {
+        const formatedDate = parseISO(data.article.createdAt).toString().slice(0, 25)
         content = (
             <div className='postWrapper'>
 
@@ -79,16 +96,43 @@ const Post: FunctionComponent = () => {
 
                 <div className="postWrapper__rightContent">
 
-                    <div className="postWrapper__postAuthor">
-                        <span className="postWrapper__author">{data.article.author.username}</span>
-                        <span className="postWrapper__date">March 5, 2020 </span>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <div className="postWrapper__postAuthor">
+                            <span className="postWrapper__author">{data.article.author.username}</span>
+                            <span className="postWrapper__date"> {formatedDate} </span>
+                        </div>
+
+                        <img src={data.article.author.image} alt="" className="postWrapper__authorAvatar"/>
                     </div>
 
-                    <img src={data.article.author.image} alt="" className="postWrapper__authorAvatar"/>
-
+                    {data.article.author.username === localStorage.getItem('username')
+                        ? (
+                            <div style={{marginTop: '25px', position: 'relative'}}>
+                                <button onClick={() => setConfirmDelete(true)}  className='deleteButton'>Delete</button>
+                                <Link to={`/articles/${slug}/edit`} className='editButton'>Edit</Link>
+                                {!confirmDelete ? null : (
+                                    <div className="confirmDelete">
+                                        <div className="leftContent">
+                                            <img src={warning} alt=""/>
+                                            <span>Are you sure to delete this article?</span>
+                                        </div>
+                                        <div className="rightContent">
+                                            <button className='noButton' onClick={() => setConfirmDelete(false)}>
+                                                No
+                                            </button>
+                                            <button className='yesButton' onClick={deletePostOnClick}>
+                                                Yes
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )
+                        : null}
                 </div>
             </div>
         )
+
     }
 
 

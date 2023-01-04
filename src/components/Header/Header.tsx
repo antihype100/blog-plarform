@@ -20,6 +20,7 @@ const Header = () => {
         localStorage.removeItem('email');
         localStorage.removeItem('token')
         dispatch(logout())
+        window.location.reload();
     }
 
     if (isLogin || localStorage.getItem('auth')) {
@@ -29,14 +30,14 @@ const Header = () => {
 
                 <div className="header__authWrapper">
 
-                    <Link className='header__createPost' to='/'>Create post</Link>
+                    <Link className='header__createPost' to='/new-article'>Create post</Link>
 
                     <Link className='header__profile' to='/profile'>
                         <span>{username}</span>
                         <img style={{width: '46px', height: '42px', borderRadius: '50px'}} src={userimg ? userimg : avatar} alt=""/>
                     </Link>
 
-                    <Link onClick={logoutOnclick} className='header__logout' to='/posts'>Log Out</Link>
+                    <Link onClick={logoutOnclick} className='header__logout' to='/articles'>Log Out</Link>
                 </div>
             </header>
         )
