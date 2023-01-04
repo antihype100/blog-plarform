@@ -1,6 +1,9 @@
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import './SignUp.scss'
 import {useForm, SubmitHandler} from "react-hook-form";
+import {useRegisterMutation} from "../../../redux/reducers/postsApi";
+import {useDispatch} from "react-redux";
+import {login} from "../../../redux/reducers/authSlice";
 
 interface IFormInput {
     firstName?: string;
@@ -8,11 +11,37 @@ interface IFormInput {
     age?: number;
 }
 
+
 const SignUp = () => {
 
+    const [registerOnServer, { isSuccess, isError, data}] = useRegisterMutation()
+    const dispatch = useDispatch()
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
+    const onSubmit: SubmitHandler<IFormInput> = (validate: any) => {
+
+        registerOnServer({
+            'user': {
+                'username': validate.Username,
+                'email': validate.Email,
+                'password': validate.Password
+            }
+        })
+
+        console.log(validate);
+    }
+    if (isSuccess) {
+
+        localStorage.setItem('token', data.user.token)
+        localStorage.setItem('auth', 'true')
+        localStorage.setItem('username', data.user.username)
+        localStorage.setItem('email', data.user.email)
+        dispatch(login())
+        return <Navigate to='/' replace/>
+    }
+
+    console.log(data)
     console.log(errors);
+
     let style = {}
     if (errors.RepeatPassword) {
         console.log('Пароли не совпадают')
@@ -32,8 +61,10 @@ const SignUp = () => {
                 <input type="text"
                        {...register('Username', {required: true, minLength: 3, maxLength: 20})}
                        placeholder='Username'/>
-                {errors.Username?.type === 'minLength' ? <span style={{color: 'red'}}>Your username needs to be at least 6 characters.</span> : null}
-                {errors.Username?.type === 'maxLength' ? <span style={{color: 'red'}}>Your username must be 40 characters or less.</span> : null}
+                {errors.Username?.type === 'minLength' ?
+                    <span style={{color: 'red'}}>Your username needs to be at least 6 characters.</span> : null}
+                {errors.Username?.type === 'maxLength' ?
+                    <span style={{color: 'red'}}>Your username must be 40 characters or less.</span> : null}
                 {errors.Username?.type === 'required' && <span style={{color: 'red'}}>Required field</span>}
             </div>
             <div className='inputTextWrapper'>
@@ -57,8 +88,10 @@ const SignUp = () => {
                            maxLength: 40,
                        })}
                        placeholder='Password'/>
-                {errors.Password?.type === 'minLength' ? <span style={{color: 'red'}}>Your password needs to be at least 6 characters.</span> : null}
-                {errors.Password?.type === 'maxLength' ? <span style={{color: 'red'}}>Your password must be 40 characters or less.</span> : null}
+                {errors.Password?.type === 'minLength' ?
+                    <span style={{color: 'red'}}>Your password needs to be at least 6 characters.</span> : null}
+                {errors.Password?.type === 'maxLength' ?
+                    <span style={{color: 'red'}}>Your password must be 40 characters or less.</span> : null}
             </div>
             <div className='inputTextWrapper'>
                 <label htmlFor="">Repeat Password</label>
@@ -83,7 +116,8 @@ const SignUp = () => {
 
             </div>
             {errors.Checkbox ? <span style={{color: 'red', marginBottom: '10px'}}>Required field</span> : null}
-            <button>Login</button>
+            <button>Create</button>
+            {isError && <span style={{color: 'red', marginBottom: '10px', fontSize: '14px'}}>A user with this name or email already exists</span>}
 
             <span>Already have an account? <Link to='/sign-in'>Sign in.</Link></span>
         </form>

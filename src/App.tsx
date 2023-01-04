@@ -7,6 +7,7 @@ import {Provider} from "react-redux";
 import {store} from "./redux";
 import {SignIn} from "./components/Auth/SignIn/SignIn";
 import {SignUp} from "./components/Auth/SignUp/SignUp";
+import {EditProfile} from "./components/EditProfile/EditProfile";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
@@ -15,6 +16,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path='posts/:slug' element={<Post/>}/>
         <Route path='sign-in' element={<SignIn/>}/>
         <Route path='sign-up' element={<SignUp/>}/>
+        <Route path='profile' element={<EditProfile/>}/>
 
     </Route>
 ))
