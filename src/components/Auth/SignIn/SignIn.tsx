@@ -4,21 +4,15 @@ import {useLoginMutation} from "../../../redux/reducers/postsApi";
 import {useDispatch} from "react-redux";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {login} from "../../../redux/reducers/authSlice";
-
-export interface IFormInput {
-    firstName?: string;
-    lastName?: string;
-    age?: number;
-}
+import {IFormInput} from "../../../types/interfaces";
 
 
 const SignIn = () => {
 
-    const [loginOnServer, { isSuccess, data, error}] = useLoginMutation()
-
     const dispatch = useDispatch()
-    const {register, handleSubmit, formState: {errors}} = useForm()
 
+    const [loginOnServer, { isSuccess, data, error}] = useLoginMutation()
+    const {register, handleSubmit, formState: {errors}} = useForm()
     const onSubmit: SubmitHandler<IFormInput> = (validate: any) => {
 
         loginOnServer({
@@ -29,8 +23,9 @@ const SignIn = () => {
         })
 
     }
-    if (isSuccess) {
 
+
+    if (isSuccess) {
         console.log('Авторизация прошла успешно')
         localStorage.setItem('image', data.user.image)
         localStorage.setItem('token', data.user.token)
@@ -38,7 +33,8 @@ const SignIn = () => {
         localStorage.setItem('username', data.user.username)
         localStorage.setItem('email', data.user.email)
         dispatch(login())
-        return <Navigate to='/' replace/>
+        setTimeout(() => window.location.reload(), 100)
+        return <Navigate to='/articles' replace/>
     }
 
 

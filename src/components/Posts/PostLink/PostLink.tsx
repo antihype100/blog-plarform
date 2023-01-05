@@ -6,17 +6,14 @@ import {parseISO} from "date-fns";
 import {HeartLike} from "../HeartLike/HeartLike";
 
 const PostLink: FunctionComponent<IPost> = ({createdAt, title, slug, favoritesCount, author, tagList, description}: IPost) => {
-    const imgLink = author?.image
+
     tagList = tagList.filter(el => el.length < 10)
-
-
-
-
 
     return (
         <div className='postLinkWrapper'>
 
             <div className="postLinkWrapper__leftContent">
+
                 <div className="postLinkWrapper__titleWrapper">
                     <Link to={`${slug}`} className='postLinkWrapper__title'>{title}</Link>
                     <HeartLike slug={slug as string}/>
@@ -41,7 +38,10 @@ const PostLink: FunctionComponent<IPost> = ({createdAt, title, slug, favoritesCo
                 <p className="postLinkWrapper__overview">
                     {description}
                 </p>
+
             </div>
+
+
 
             <div className="postLinkWrapper__rightContent">
 
@@ -50,9 +50,11 @@ const PostLink: FunctionComponent<IPost> = ({createdAt, title, slug, favoritesCo
                     <span className="postLinkWrapper__date">{parseISO(createdAt as string).toString().slice(0, 25)}</span>
                 </div>
 
-                <img src={imgLink} alt="" className="postLinkWrapper__authorAvatar"/>
+                <img src={author?.image} alt="" className="postLinkWrapper__authorAvatar"/>
 
             </div>
+
+
         </div>
     )
 }

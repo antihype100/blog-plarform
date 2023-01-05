@@ -1,23 +1,21 @@
 import './EditPost.scss'
 import {useUpdatePostMutation} from "../../redux/reducers/postsApi";
 import { SubmitHandler, useForm} from "react-hook-form";
-import {IFormInput} from "../Auth/SignIn/SignIn";
+import {IFormInput} from "../../types/interfaces";
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 const EditPost = () => {
 
-
-
     let navigate = useNavigate();
-    const slug = localStorage.getItem('slug')
     const [tag, setTag] = useState(0)
+
     const [updatePost, {isSuccess}] = useUpdatePostMutation()
     const {register, handleSubmit, formState: {errors}} = useForm()
 
     useEffect(() => {
         if (isSuccess){
-            return navigate(`/articles/${slug}`);
+            return navigate(`/articles`);
         }
     },[isSuccess]);
 
@@ -38,14 +36,10 @@ const EditPost = () => {
                 "body": Body,
             }
         })
-        console.log(tagList)
-        console.log(validate)
     }
 
 
-
-    const elements: JSX.Element[] = Array.from(Array(tag).keys()).map(el => {
-
+    const elements = Array.from(Array(tag).keys()).map(el => {
         return (
             <li key={el + 1}>
                 <input type="text"
@@ -54,7 +48,6 @@ const EditPost = () => {
                 <button onClick={(e) => deleteTag(e)} className='deleteButton'>Delete</button>
             </li>
         )
-
     })
 
     const addTag = (e: any) => {
@@ -72,8 +65,13 @@ const EditPost = () => {
 
 
     return (
+
         <form className='editPostForm' onSubmit={handleSubmit(onSubmit)}>
+
+
             <h2>Edit article</h2>
+
+
             <div className='editPostInputWrapper'>
                 <label htmlFor="">Title</label>
                 <input type="text"
@@ -86,8 +84,9 @@ const EditPost = () => {
                 {errors.Title?.type === 'required' ? <span style={{color: 'red'}}>Required field</span> : null}
                 {errors.Title?.type === 'maxLength' ? <span style={{color: 'red', marginBottom: '15px'}}>You can enter a maximum of 60 characters</span> : null}
                 {errors.Title?.type === 'minLength' ? <span style={{color: 'red', marginBottom: '15px'}}>You need to enter at least 3 characters</span> : null}
-
             </div>
+
+
             <div className='editPostInputWrapper'>
                 <label htmlFor="">Short description</label>
                 <input type="text"
@@ -101,6 +100,8 @@ const EditPost = () => {
                 {errors.Desc?.type === 'maxLength' ? <span style={{color: 'red', marginBottom: '15px'}}>You can enter a maximum of 250 characters</span> : null}
                 {errors.Desc?.type === 'required' ? <span style={{color: 'red'}}>Required field</span> : null}
             </div>
+
+
             <div className='editPostInputWrapper'>
                 <label htmlFor="">Text</label>
                 <textarea placeholder='Text'
@@ -110,8 +111,11 @@ const EditPost = () => {
                               maxLength: 1000
                           })}/>
                 {errors.Body?.type === 'minLength' ? <span style={{color: 'red', marginBottom: '15px'}}>You need to enter at least 6 characters</span> : null}
-                {errors.Body?.type === 'maxLength' ? <span style={{color: 'red', marginBottom: '15px'}}>You can enter a maximum of 1000 characters</span> : null}{errors.Body?.type === 'required' ? <span style={{color: 'red'}}>Required field</span> : null}
+                {errors.Body?.type === 'maxLength' ? <span style={{color: 'red', marginBottom: '15px'}}>You can enter a maximum of 1000 characters</span> : null}
+                {errors.Body?.type === 'required' ? <span style={{color: 'red'}}>Required field</span> : null}
             </div>
+
+
             <div className='editPostInputWrapper'>
                 <label htmlFor="">Tags</label>
                 <ul>
@@ -125,7 +129,11 @@ const EditPost = () => {
                     </li>
                 </ul>
             </div>
+
+
             <button className='sendButton'>Send</button>
+
+
         </form>
     )
 }

@@ -4,11 +4,12 @@ let token = localStorage.getItem('token')
 let localSlug = localStorage.getItem('slug')
 export const postsApi = createApi({
     reducerPath: 'postsApi',
-    tagTypes: ['Posts'],
+    tagTypes: ['Posts', 'Post'],
     baseQuery: fetchBaseQuery({baseUrl: 'https://blog.kata.academy/api/'}),
     endpoints: (build) => ({
         getPosts: build.query({
             query: (offset) => `articles?limit=5&offset=${offset}`,
+            providesTags: ['Posts']
         }),
         getPost: build.query({
             query: (slug) => {
@@ -20,7 +21,8 @@ export const postsApi = createApi({
                         'Authorization' : `Bearer ${token}`
                     },
                 }
-            }
+            },
+            providesTags: ['Posts']
         }),
         register: build.mutation({
             query(body) {
@@ -29,7 +31,8 @@ export const postsApi = createApi({
                     method: 'POST',
                     body
                 }
-            }
+            },
+            invalidatesTags: ['Posts']
         }),
         login: build.mutation({
             query(body) {
@@ -38,10 +41,11 @@ export const postsApi = createApi({
                     method: 'POST',
                     body
                 }
-            }
+            },
+            invalidatesTags: ['Posts']
         }),
         editProfile: build.mutation({
-            query(body) {
+            query([body, token]) {
                 return {
                     url: 'user',
                     headers: {
@@ -51,7 +55,8 @@ export const postsApi = createApi({
                     method: 'PUT',
                     body
                 }
-            }
+            },
+            invalidatesTags: ['Posts']
         }),
         createPost: build.mutation({
             query(body) {
@@ -64,7 +69,8 @@ export const postsApi = createApi({
                     method: 'POST',
                     body
                 }
-            }
+            },
+            invalidatesTags: ['Posts']
         }),
         updatePost: build.mutation({
             query(body) {
@@ -77,7 +83,8 @@ export const postsApi = createApi({
                     method: 'PUT',
                     body
                 }
-            }
+            },
+            invalidatesTags: ['Posts']
         }),
         deletePost: build.mutation({
             query(slug) {
@@ -89,10 +96,11 @@ export const postsApi = createApi({
                     },
                     method: 'DELETE',
                 }
-            }
+            },
+            invalidatesTags: ['Posts']
         }),
         likePost: build.mutation({
-            query(slug) {
+            query([slug, token]) {
                 return {
                     url: `articles/${slug}/favorite`,
                     headers: {
@@ -101,10 +109,11 @@ export const postsApi = createApi({
                     },
                     method: 'POST',
                 }
-            }
+            },
+            invalidatesTags: ['Posts']
         }),
         dislikePost: build.mutation({
-            query(slug) {
+            query([slug, token]) {
                 return {
                     url: `articles/${slug}/favorite`,
                     headers: {
@@ -113,19 +122,8 @@ export const postsApi = createApi({
                     },
                     method: 'DELETE',
                 }
-            }
-        }),
-        getLikedPost: build.query({
-            query(offset) {
-                return {
-                    url: `articles/feed?limit=5&offset=${offset}`,
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8',
-                        'Authorization' : `Bearer ${token}`
-                    },
-                    method: 'GET',
-                }
-            }
+            },
+            invalidatesTags: ['Posts']
         }),
     })
 });
@@ -141,5 +139,4 @@ export const {
     useDeletePostMutation,
     useDislikePostMutation,
     useLikePostMutation,
-    useGetLikedPostQuery
 } = postsApi

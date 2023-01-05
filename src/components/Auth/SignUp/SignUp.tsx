@@ -14,11 +14,12 @@ interface IFormInput {
 
 const SignUp = () => {
 
-    const [registerOnServer, { isSuccess, isError, data}] = useRegisterMutation()
     const dispatch = useDispatch()
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const onSubmit: SubmitHandler<IFormInput> = (validate: any) => {
 
+    const [registerOnServer, { isSuccess, isError, data}] = useRegisterMutation()
+    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+
+    const onSubmit: SubmitHandler<IFormInput> = (validate: any) => {
         registerOnServer({
             'user': {
                 'username': validate.Username,
@@ -26,21 +27,17 @@ const SignUp = () => {
                 'password': validate.Password
             }
         })
-
-        console.log(validate);
     }
-    if (isSuccess) {
 
+    if (isSuccess) {
         localStorage.setItem('token', data.user.token)
         localStorage.setItem('auth', 'true')
         localStorage.setItem('username', data.user.username)
         localStorage.setItem('email', data.user.email)
         dispatch(login())
-        return <Navigate to='/' replace/>
+        return <Navigate to='/articles' replace/>
     }
 
-    console.log(data)
-    console.log(errors);
 
     let style = {}
     if (errors.RepeatPassword) {
@@ -55,7 +52,11 @@ const SignUp = () => {
 
     return (
         <form className='sigUpForm' onSubmit={handleSubmit(onSubmit)}>
+
+
             <h2>Create new account</h2>
+
+
             <div className='inputTextWrapper'>
                 <label htmlFor="">Username</label>
                 <input type="text"
@@ -67,6 +68,8 @@ const SignUp = () => {
                     <span style={{color: 'red'}}>Your username must be 40 characters or less.</span> : null}
                 {errors.Username?.type === 'required' && <span style={{color: 'red'}}>Required field</span>}
             </div>
+
+
             <div className='inputTextWrapper'>
                 <label htmlFor="">Email address</label>
                 <input type="text"
@@ -78,6 +81,8 @@ const SignUp = () => {
                 {errors.Email?.type === 'pattern' ? <span style={{color: 'red'}}>Wrong email format</span> : null}
                 {errors.Email?.type === 'required' ? <span style={{color: 'red'}}>Required field</span> : null}
             </div>
+
+
             <div className='inputTextWrapper'>
                 <label htmlFor="">Password</label>
                 <input type="text"
@@ -93,6 +98,8 @@ const SignUp = () => {
                 {errors.Password?.type === 'maxLength' ?
                     <span style={{color: 'red'}}>Your password must be 40 characters or less.</span> : null}
             </div>
+
+
             <div className='inputTextWrapper'>
                 <label htmlFor="">Repeat Password</label>
                 <input type="text"
@@ -109,17 +116,22 @@ const SignUp = () => {
                        placeholder='Repeat Password'/>
                 {errors.RepeatPassword ? <span style={{color: 'red'}}>Passwords must match</span> : null}
             </div>
+
+
             <div className='inputCheckboxWrapper'>
                 <input type="checkbox" {...register('Checkbox', {required: true})}/>
                 <label htmlFor="">I agree to the processing of my personal
                     information</label>
-
             </div>
             {errors.Checkbox ? <span style={{color: 'red', marginBottom: '10px'}}>Required field</span> : null}
+
+
             <button>Create</button>
             {isError && <span style={{color: 'red', marginBottom: '10px', fontSize: '14px'}}>A user with this name or email already exists</span>}
 
+
             <span>Already have an account? <Link to='/sign-in'>Sign in.</Link></span>
+
         </form>
     )
 }

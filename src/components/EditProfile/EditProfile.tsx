@@ -1,23 +1,27 @@
 import './EditProfile.scss'
 import {useForm, SubmitHandler} from "react-hook-form";
 import {useEditProfileMutation} from "../../redux/reducers/postsApi";
-
-
-interface IFormInput {
-    firstName?: string;
-    lastName?: string;
-    age?: number;
-}
+import {useEffect} from "react";
+import {IFormInput} from "../../types/interfaces";
+import {useNavigate} from "react-router-dom";
 
 
 const EditProfile = () => {
 
-    const [editProfile, {error}] = useEditProfileMutation()
-    console.log(error)
-    const {register, handleSubmit, formState: {errors}} = useForm();
-    const onSubmit: SubmitHandler<IFormInput> = (validate: any) => {
+    const navigate = useNavigate()
 
-        editProfile({
+
+    const [editProfile, {error, isSuccess}] = useEditProfileMutation()
+    const {register, handleSubmit, formState: {errors}} = useForm();
+
+    useEffect(() => {
+        if (isSuccess){
+            return navigate(`/articles`);
+        }
+    },[isSuccess]);
+
+    const onSubmit: SubmitHandler<IFormInput> = (validate: any) => {
+        editProfile([{
             'user': {
                 'email': validate.Email,
                 'password': validate.Password,
@@ -25,17 +29,16 @@ const EditProfile = () => {
                 'bio': '',
                 'image': validate.Image || ''
             }
-        })
-
-        console.log(validate);
+        }, localStorage.getItem('token')])
     }
-
-
-
 
     return (
         <form className='sigUpForm' onSubmit={handleSubmit(onSubmit)}>
+
+
             <h2>Edit Profile</h2>
+
+
             <div className='inputTextWrapper'>
                 <label htmlFor="">Username</label>
                 <input type="text"
@@ -47,6 +50,8 @@ const EditProfile = () => {
                     <span style={{color: 'red'}}>Your username must be 40 characters or less.</span> : null}
                 {errors.Username?.type === 'required' && <span style={{color: 'red'}}>Required field</span>}
             </div>
+
+
             <div className='inputTextWrapper'>
                 <label htmlFor="">Email address</label>
                 <input type="text"
@@ -59,6 +64,8 @@ const EditProfile = () => {
                 {errors.Email?.type === 'pattern' ? <span style={{color: 'red'}}>Wrong email format</span> : null}
                 {errors.Email?.type === 'required' ? <span style={{color: 'red'}}>Required field</span> : null}
             </div>
+
+
             <div className='inputTextWrapper'>
                 <label htmlFor="">New Password</label>
                 <input type="text"
@@ -69,16 +76,19 @@ const EditProfile = () => {
                        })}
                        placeholder='Password'/>
                 {errors.Password?.type === 'required' ? <span style={{color: 'red'}}>Required field</span> : null}
-                {errors.Password?.type === 'minLength' ?
-                    <span style={{color: 'red'}}>Your password needs to be at least 6 characters.</span> : null}
+                {errors.Password?.type === 'minLength' ? <span style={{color: 'red'}}>Your password needs to be at least 6 characters.</span> : null}
                 {errors.Password?.type === 'maxLength' ? <span style={{color: 'red'}}>Your password must be 40 characters or less.</span> : null}
             </div>
+
+
             <div className='inputTextWrapper'>
                 <label htmlFor="">Avatar image (url)</label>
                 <input type="text"
                        {...register('Image')}
                        placeholder='Image'/>
             </div>
+
+
             <button>Save</button>
 
 

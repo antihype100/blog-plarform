@@ -35,8 +35,6 @@ const CreateNewPost = () => {
                 "tagList": tagList
             }
         })
-        console.log(tagList)
-        console.log(validate)
     }
 
 
