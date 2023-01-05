@@ -1,7 +1,7 @@
 import './PostLink.scss'
 import {Link} from "react-router-dom";
 import {FunctionComponent} from "react";
-import {IPost} from "../Posts";
+import {IPost} from "../../../types/interfaces";
 import {parseISO} from "date-fns";
 import {HeartLike} from "../HeartLike/HeartLike";
 
