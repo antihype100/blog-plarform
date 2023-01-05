@@ -1,7 +1,7 @@
 import './CreateNewPost.scss'
 import {useCreatePostMutation} from "../../redux/reducers/postsApi";
 import { SubmitHandler, useForm} from "react-hook-form";
-import {IFormInput} from "../Auth/SignIn/SignIn";
+import {IFormInput} from "../../types/interfaces";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
