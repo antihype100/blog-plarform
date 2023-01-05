@@ -4,7 +4,7 @@ import {useLoginMutation} from "../../../redux/reducers/postsApi";
 import {useDispatch} from "react-redux";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {login} from "../../../redux/reducers/authSlice";
-import {IFormInput} from "../../../types/interfaces";
+import {IFormInput} from "../../../types/interfaces"
 
 
 const SignIn = () => {
