@@ -43,7 +43,7 @@ const Post: FunctionComponent = () => {
                 <div className="postWrapper__leftContent">
 
                     <div className="postWrapper__titleWrapper">
-                        <span className='postWrapper__title'>{data.article.title}</span>
+                        <span className='postWrapper__title'>{data.article.title.slice(0,60)}</span>
                         <HeartLike slug={slug}/>
                         <span className='postWrapper__amountLikes'>{data.article.favoritesCount}</span>
                     </div>
@@ -51,10 +51,10 @@ const Post: FunctionComponent = () => {
                     <ul className="postWrapper__tagsList">
                         {data.article.tagList.length > 0
                             ? data.article.tagList.map((el: string) => {
-                                if (el !== '') {
+                                if (el !== '' && el !== null) {
                                     return (
                                         <li style={{marginRight:'10px'}} key={data.article.tagList.indexOf(el)}>
-                                            {el}
+                                            {el.slice(0, 20)}
                                         </li>
                                     )
                                 }
@@ -65,7 +65,7 @@ const Post: FunctionComponent = () => {
                     </ul>
 
                     <p className="postWrapper__overview">
-                        {data.article.description}
+                        {data.article.description.slice(0, 300)}
                     </p>
 
                     <p>{data.article.body}</p>

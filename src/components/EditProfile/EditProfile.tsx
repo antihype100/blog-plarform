@@ -67,8 +67,8 @@ const EditProfile = () => {
 
 
             <div className='inputTextWrapper'>
-                <label htmlFor="">New Password</label>
-                <input type="text"
+                <label  htmlFor="">New Password</label>
+                <input type="password"
                        {...register('Password', {
                            required: true,
                            minLength: 6,
