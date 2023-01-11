@@ -1,7 +1,7 @@
 import React, { MouseEvent} from 'react';
 import './Pagination.scss';
-import Next from './next.svg';
-import Back from './back.svg';
+import Next from '../../assets/next.svg';
+import Back from '../../assets/back.svg';
 import {useDispatch} from "react-redux";
 import {decrement, increment, setPageGlobal} from "../../redux/reducers/paginationSlice";
 import {useTypedSelector} from "../../hooks/useTypedSelector";

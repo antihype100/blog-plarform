@@ -27,7 +27,7 @@ const Post: FunctionComponent = () => {
     },[postDelete]);
 
     const deletePostOnClick = () => {
-        deletePost(slug)
+        deletePost([slug, localStorage.getItem('token')])
     }
 
     let content

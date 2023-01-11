@@ -1,11 +1,13 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export interface PageState {
-    page: number
+    page: number,
+    maxPages: number
 }
 
 const initialState: PageState = {
-    page: 1
+    page: 1,
+    maxPages: 3
 }
 
 export const pageSlice = createSlice({
@@ -13,19 +15,29 @@ export const pageSlice = createSlice({
     initialState,
     reducers: {
         increment(state) {
-            state.page += 1
+            if (state.page === state.maxPages) {
+
+            } else {
+                state.page += 1
+            }
+
         },
         decrement(state) {
             state.page -= 1
         },
         setPageGlobal(state, action: PayloadAction<number>) {
+
             state.page = action.payload
+        },
+        setMaxCountPages(state, action: PayloadAction<number>) {
+            state.maxPages = action.payload
         }
+
     }
 
 
 })
 
-export const {increment, decrement, setPageGlobal} = pageSlice.actions
+export const {increment, decrement, setPageGlobal, setMaxCountPages} = pageSlice.actions
 
 export default pageSlice.reducer

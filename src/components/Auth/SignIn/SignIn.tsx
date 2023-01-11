@@ -1,10 +1,10 @@
-import './SignIn.scss'
-import {Link, Navigate} from "react-router-dom";
-import {useLoginMutation} from "../../../redux/reducers/postsApi";
 import {useDispatch} from "react-redux";
+import {Link, Navigate} from "react-router-dom";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {useLoginMutation} from "../../../redux/reducers/postsApi";
 import {login} from "../../../redux/reducers/authSlice";
 import {IFormInput} from "../../../types/interfaces"
+import './SignIn.scss'
 
 
 const SignIn = () => {

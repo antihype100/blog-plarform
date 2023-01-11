@@ -18,7 +18,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path='articles/:slug' element={<Post/>}/>
         <Route path='sign-in' element={<SignIn/>}/>
         <Route path='sign-up' element={<SignUp/>}/>
-        <Route path='profile' element={<EditProfile/>}/>
+        <Route path='profile/:username' element={<EditProfile/>}/>
         <Route path='new-article' element={<CreateNewPost/>}/>
         <Route path='articles/:slug/edit' element={<EditPost/>}/>
 

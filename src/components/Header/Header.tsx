@@ -36,7 +36,7 @@ const Header = () => {
 
                 <div className="header__authWrapper">
                     <Link className='header__createPost' to='/new-article'>Create post</Link>
-                    <Link className='header__profile' to='/profile'>
+                    <Link className='header__profile' to={`/profile/${userName}`}>
                         <span>{userName}</span>
                         <img style={{width: '46px', height: '42px', borderRadius: '50px'}} src={userImg ? userImg : avatar} alt=""/>
                     </Link>

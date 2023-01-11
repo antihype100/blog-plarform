@@ -5,6 +5,9 @@ import {IPost} from "../../../types/interfaces";
 import {parseISO} from "date-fns";
 import {HeartLike} from "../HeartLike/HeartLike";
 
+
+
+
 const PostLink: FunctionComponent<IPost> = ({createdAt, title, slug, favoritesCount, author, tagList, description}: IPost) => {
 
 

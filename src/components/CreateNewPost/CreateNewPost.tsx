@@ -27,14 +27,14 @@ const CreateNewPost = () => {
             tagList.push(tags[key])
         }
 
-        createPost({
+        createPost([{
             "article": {
                 "title": Title,
                 "description": Desc,
                 "body": Body,
                 "tagList": tagList
             }
-        })
+        }, localStorage.getItem('token')])
     }
 
 
@@ -43,7 +43,7 @@ const CreateNewPost = () => {
     const elements: JSX.Element[] = Array.from(Array(tag).keys()).map(el => {
 
         return (
-            <li key={el + 1}>
+            <li key={Date.now()}>
                 <input type="text"
                        {...register(`Tag${el + 1}`)}
                        placeholder='Tag'/>

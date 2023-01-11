@@ -1,16 +1,18 @@
 import './EditProfile.scss'
 import {useForm, SubmitHandler} from "react-hook-form";
 import {useEditProfileMutation} from "../../redux/reducers/postsApi";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {IFormInput} from "../../types/interfaces";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+
 
 
 const EditProfile = () => {
 
     const navigate = useNavigate()
-
-
+    const {username} = useParams()
+    console.log(username)
+    const [userNameInForm, setUserNameInForm] = useState('.')
     const [editProfile, {error, isSuccess}] = useEditProfileMutation()
     const {register, handleSubmit, formState: {errors}} = useForm();
 
@@ -31,6 +33,19 @@ const EditProfile = () => {
             }
         }, localStorage.getItem('token')])
     }
+    const changeValue = (e: any) => {
+        if (e.target.placeholder === 'Username') {
+            setUserNameInForm(e.target.value)
+        }
+    }
+
+
+
+    if (userNameInForm === '.') {
+        // @ts-ignore
+        setUserNameInForm(username)
+    }
+
 
     return (
         <form className='sigUpForm' onSubmit={handleSubmit(onSubmit)}>
@@ -42,10 +57,14 @@ const EditProfile = () => {
             <div className='inputTextWrapper'>
                 <label htmlFor="">Username</label>
                 <input type="text"
+                       value={userNameInForm}
                        {...register('Username', {required: true, minLength: 3, maxLength: 20})}
-                       placeholder='Username'/>
+                       placeholder='Username'
+                       onChange={(e) => changeValue(e)}
+                />
+
                 {errors.Username?.type === 'minLength' ?
-                <span style={{color: 'red'}}>Your username needs to be at least 6 characters.</span> : null}
+                    <span style={{color: 'red'}}>Your username needs to be at least 6 characters.</span> : null}
                 {errors.Username?.type === 'maxLength' ?
                     <span style={{color: 'red'}}>Your username must be 40 characters or less.</span> : null}
                 {errors.Username?.type === 'required' && <span style={{color: 'red'}}>Required field</span>}

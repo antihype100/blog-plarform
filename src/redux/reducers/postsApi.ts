@@ -59,7 +59,7 @@ export const postsApi = createApi({
             invalidatesTags: ['Posts']
         }),
         createPost: build.mutation({
-            query(body) {
+            query([body, token]) {
                 return {
                     url: 'articles',
                     headers: {
@@ -73,7 +73,7 @@ export const postsApi = createApi({
             invalidatesTags: ['Posts']
         }),
         updatePost: build.mutation({
-            query(body) {
+            query([body, token]) {
                 return {
                     url: `articles/${localSlug}`,
                     headers: {
@@ -87,7 +87,7 @@ export const postsApi = createApi({
             invalidatesTags: ['Posts']
         }),
         deletePost: build.mutation({
-            query(slug) {
+            query([slug, token]) {
                 return {
                     url: `articles/${slug}`,
                     headers: {
